@@ -12,8 +12,14 @@ export class UserService {
 
   constructor( private http: HttpClient ) { }
 
-  getUsers(): Observable<UserModel[]> {
+  getUsers() {
     const url = `${environment.api}users?per_page=6`;
+    return this.http.get(url).pipe(
+      map( resp =>  resp['data'] )
+    );
+  }
+  getUserById( id: string ) {
+    const url = `${environment.api}users/${id}`;
     return this.http.get(url).pipe(
       map( resp =>  resp['data'] )
     );
